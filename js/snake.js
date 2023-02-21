@@ -69,13 +69,13 @@ recognition.addEventListener("result", direction);
 function direction(e){
     const hello = Array.from(e.results).map((results) => results[0].transcript);
     fianalDirection = hello[0];
-    // console.log(fianalDirection);
+    console.log(fianalDirection);
     
     let key = fianalDirection
 
     if (key == "left" && d != "RIGHT") {
         d = "LEFT";
-    } else if(key == "up" && d != "DOWN"){
+    } else if(key == "top" && d != "DOWN"){
         d = "UP";
     } else if(key == "right" && d != "LEFT"){
         d = "RIGHT";
