@@ -27,6 +27,20 @@ let food = {
 
 let score = 0;
 
+let d;
+document.addEventListener('keydown', function(e){
+    console.log(e);
+    if (e.keyCode == 37 && d != "RIGHT") {
+        d = "LEFT";
+    } else if(e.keyCode == 38 && d != "DOWN"){
+        d = "UP";
+    } else if(e.keyCode == 39 && d != "LEFT"){
+        d = "RIGHT";
+    }else if(e.keyCode == 40 && d != "UP"){
+        d = "DOWN";
+    }
+});
+
 function draw() {
     ctx.drawImage(ground, 0, 0);
 
