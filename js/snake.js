@@ -56,6 +56,16 @@ function draw() {
     /* Draw of food */
     ctx.drawImage(foodImg, food.x, food.y);
 
+    /* Old head */
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    /* Giving directions */
+    if (d == "LEFT")snakeX -= box;
+    if (d == "UP")snakeY -= box;
+    if (d == "RIGHT")snakeX += box;
+    if (d == "DOWN")snakeY -= box;
+
     /* Creating the score */
     ctx.fillStyle = "white"
     ctx.font = "45px Arial";
