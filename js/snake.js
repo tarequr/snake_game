@@ -66,23 +66,22 @@ let d;
 
 recognition.addEventListener("result", direction);
 
-function direction(e){
-    const hello = Array.from(e.results).map((results) => results[0].transcript);
-    fianalDirection = hello[0];
-    console.log(fianalDirection);
-    
-    let key = fianalDirection
+    function direction(e){
+        const hello = Array.from(e.results).map((results) => results[0].transcript);
+        fianalDirection = hello[0];
+        console.log(fianalDirection);
+        let key = fianalDirection
 
-    if (key == "left" && d != "RIGHT") {
-        d = "LEFT";
-    } else if(key == "top" && d != "DOWN"){
-        d = "UP";
-    } else if(key == "right" && d != "LEFT"){
-        d = "RIGHT";
-    }else if(key == "down" && d != "UP"){
-        d = "DOWN";
+        if (key == "left"  || key == "Left" && d != "RIGHT") {
+            d = "LEFT";
+        } else if(key == "up" || key == "top" || key == "Top" && d != "DOWN"){
+            d = "UP";
+        } else if(key == "right" || key == "Right" && d != "LEFT"){
+            d = "RIGHT";
+        }else if(key == "down" || key == "Down" && d != "UP"){
+            d = "DOWN";
+        }
     }
-}
 
 /* Collision function */
 function collision(head, array) {
@@ -151,8 +150,8 @@ function draw() {
     ctx.fillText(score, 2*box, 1.6*box);
 }
 
-recognition.addEventListener("end", recognition.start); // voice recognition
+recognition.addEventListener("end", recognition.start);
 
-let game = setInterval(draw, 500);
+let game = setInterval(draw, 1000);
 
-recognition.start(); // voice recognition
+recognition.start();
