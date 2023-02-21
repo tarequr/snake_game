@@ -41,6 +41,11 @@ function draw() {
 
     /* Draw of food */
     ctx.drawImage(foodImg, food.x, food.y);
+
+    /* Creating the score */
+    ctx.fillStyle = "white"
+    ctx.font = "45px Arial";
+    ctx.fillText(score, 2*box, 1.6*box);
 }
 
 let game = setInterval(draw, 500);
