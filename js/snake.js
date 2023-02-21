@@ -41,6 +41,16 @@ document.addEventListener('keydown', function(e){
     }
 });
 
+/* Collision function */
+function collision(head, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (head.x == array[i].x && head.y == array[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function draw() {
     ctx.drawImage(ground, 0, 0);
 
@@ -50,7 +60,7 @@ function draw() {
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
         ctx.strokeStyle = "yellow";
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 
     /* Draw of food */
