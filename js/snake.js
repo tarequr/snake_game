@@ -1,4 +1,4 @@
-// window.SpeechRecognition =
+/******************VOICE RECOGNITION START HERE**************/
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 const recognition = new SpeechRecognition();
@@ -6,61 +6,52 @@ recognition.lang = "en-US";
 
 let fianalDirection;
 
-recognition.addEventListener("result", (e) => {
-    // console.log(e);
-    const hello = Array.from(e.results).map((results) => results[0].transcript);
-    // console.log(hello);
-    fianalDirection = hello[0];
+// recognition.addEventListener("result", (e) => {
+//     // console.log(e);
+//     const hello = Array.from(e.results).map((results) => results[0].transcript);
+//     // console.log(hello);
+//     fianalDirection = hello[0];
+//     console.log(fianalDirection);
+// });
 
-    console.log(fianalDirection);
-});
+// recognition.addEventListener("end", recognition.start);
 
-recognition.start();
+// recognition.start();
 
+/******************VOICE RECOGNITION END HERE**************/
 
+var cvs = document.getElementById("snake");
+var ctx = cvs.getContext("2d");
 
+/* Creating a unit */
+const box = 32;
 
+/* Load image */
+const ground = new Image();
+ground.src = "img/ground3.png";
 
+const foodImg = new Image();
+foodImg.src = "img/food2.png";
 
+/* Creating image */
+let snake = [];
 
+snake[0] = {
+    x: 9*box,
+    y: 10*box,
+}
 
+/* Creating food */
+let food = {
+    x: Math.floor(Math.random()*17+1)*box,
+    y: Math.floor(Math.random()*15+3)*box,
+}
 
+let score = 0;
+let d;
 
-
-
-
-
-// var cvs = document.getElementById("snake");
-// var ctx = cvs.getContext("2d");
-
-// /* Creating a unit */
-// const box = 32;
-
-// /* Load image */
-// const ground = new Image();
-// ground.src = "img/ground3.png";
-
-// const foodImg = new Image();
-// foodImg.src = "img/food2.png";
-
-// /* Creating image */
-// let snake = [];
-
-// snake[0] = {
-//     x: 9*box,
-//     y: 10*box,
-// }
-
-// /* Creating food */
-// let food = {
-//     x: Math.floor(Math.random()*17+1)*box,
-//     y: Math.floor(Math.random()*15+3)*box,
-// }
-
-// let score = 0;
-
-// let d;
-// document.addEventListener('keydown', function(e){
+// document.addEventListener('keydown', direction);
+// function direction(e){
 //     console.log(e);
 //     if (e.keyCode == 37 && d != "RIGHT") {
 //         d = "LEFT";
@@ -71,73 +62,96 @@ recognition.start();
 //     }else if(e.keyCode == 40 && d != "UP"){
 //         d = "DOWN";
 //     }
-// });
-
-// /* Collision function */
-// function collision(head, array) {
-//     for (let i = 0; i < array.length; i++) {
-//         if (head.x == array[i].x && head.y == array[i].y) {
-//             return true;
-//         }
-//     }
-//     return false;
 // }
 
-// function draw() {
-//     ctx.drawImage(ground, 0, 0);
+recognition.addEventListener("result", direction);
 
-//     /* Draw of our snake */
-//     for (let i = 0; i < snake.length; i++) {
-//         ctx.fillStyle = i == 0 ? "green" : "brown";
-//         ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    function direction(e){
+        const hello = Array.from(e.results).map((results) => results[0].transcript);
+        fianalDirection = hello[0];
+console.log(fianalDirection);
+        let key = fianalDirection
 
-//         ctx.strokeStyle = "yellow";
-//         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-//     }
+        if (key == "left" && d != "RIGHT") {
+            d = "LEFT";
+        } else if(key == "up" && d != "DOWN"){
+            d = "UP";
+        } else if(key == "right" && d != "LEFT"){
+            d = "RIGHT";
+        }else if(key == "down" && d != "UP"){
+            d = "DOWN";
+        }
+    }
 
-//     /* Draw of food */
-//     ctx.drawImage(foodImg, food.x, food.y);
+/* Collision function */
+function collision(head, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (head.x == array[i].x && head.y == array[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
 
-//     /* Old head */
-//     let snakeX = snake[0].x;
-//     let snakeY = snake[0].y;
+function draw() {
+    ctx.drawImage(ground, 0, 0);
 
-//     /* Giving directions */
-//     if (d == "LEFT")snakeX -= box;
-//     if (d == "UP")snakeY -= box;
-//     if (d == "RIGHT")snakeX += box;
-//     if (d == "DOWN")snakeY += box;
+    /* Draw of our snake */
+    for (let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = i == 0 ? "green" : "brown";
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-//     /* After eating the food */
-//     if (snakeX == food.x && snakeY == food.y) {
-//         score ++;
-//         food = {
-//             x: Math.floor(Math.random()*17+1)*box,
-//             y: Math.floor(Math.random()*15+3)*box,
-//         };
-//     } else {
-//         snake.pop();
-//     }
+        ctx.strokeStyle = "yellow";
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+    }
 
-//     /* New head */
-//     let newHead = {
-//         x:snakeX,
-//         y:snakeY,
-//     }
+    /* Draw of food */
+    ctx.drawImage(foodImg, food.x, food.y);
 
-//     /* Game over */
-//     if (snakeX < box || snakeX > 17*box || snakeY < 3*box || snakeY > 17*box || collision(newHead, snake)) {
-//         clearInterval(game);
-//     }
+    /* Old head */
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
 
-//     /* Shifting head */
-//     snake.unshift(newHead);
+    /* Giving directions */
+    if (d == "LEFT")snakeX -= box;
+    if (d == "UP")snakeY -= box;
+    if (d == "RIGHT")snakeX += box;
+    if (d == "DOWN")snakeY += box;
+
+    /* After eating the food */
+    if (snakeX == food.x && snakeY == food.y) {
+        score ++;
+        food = {
+            x: Math.floor(Math.random()*17+1)*box,
+            y: Math.floor(Math.random()*15+3)*box,
+        };
+    } else {
+        snake.pop();
+    }
+
+    /* New head */
+    let newHead = {
+        x:snakeX,
+        y:snakeY,
+    }
+
+    /* Game over */
+    if (snakeX < box || snakeX > 17*box || snakeY < 3*box || snakeY > 17*box || collision(newHead, snake)) {
+        clearInterval(game);
+    }
+
+    /* Shifting head */
+    snake.unshift(newHead);
 
 
-//     /* Creating the score */
-//     ctx.fillStyle = "white"
-//     ctx.font = "45px Arial";
-//     ctx.fillText(score, 2*box, 1.6*box);
-// }
+    /* Creating the score */
+    ctx.fillStyle = "white"
+    ctx.font = "45px Arial";
+    ctx.fillText(score, 2*box, 1.6*box);
+}
 
-// let game = setInterval(draw, 200);
+recognition.addEventListener("end", recognition.start); // voice recognition
+
+let game = setInterval(draw, 500);
+
+recognition.start(); // voice recognition
