@@ -29,6 +29,15 @@ let score = 0;
 
 function draw() {
     ctx.drawImage(ground, 0, 0);
+
+    /* Draw of our snake */
+    for (let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = i == 0 ? "green" : "brown";
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+
+        ctx.strokeStyle = "yellow";
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    }
 }
 
 let game = setInterval(draw, 500);
