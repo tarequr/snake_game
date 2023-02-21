@@ -66,6 +66,17 @@ function draw() {
     if (d == "RIGHT")snakeX += box;
     if (d == "DOWN")snakeY -= box;
 
+    /* After eating the food */
+    if (snakeX == food.x && snakeY == food.y) {
+        score ++;
+        food = {
+            x: Math.floor(Math.random()*17+1)*box,
+            y: Math.floor(Math.random()*15+3)*box,
+        }
+    } else {
+        snake.pop();
+    }
+
     /* Creating the score */
     ctx.fillStyle = "white"
     ctx.font = "45px Arial";
