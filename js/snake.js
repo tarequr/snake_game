@@ -83,6 +83,11 @@ function draw() {
         y:snakeY,
     }
 
+    /* Game over */
+    if (snakeX < box || snakeX > 17*box || snakeY < 3*box || snakeY > 17*box || collision(newHead, snake)) {
+        clearInterval(game);
+    }
+
     /* Shifting head */
     snake.unshift(newHead);
 
@@ -93,4 +98,4 @@ function draw() {
     ctx.fillText(score, 2*box, 1.6*box);
 }
 
-let game = setInterval(draw, 500);
+let game = setInterval(draw, 200);
