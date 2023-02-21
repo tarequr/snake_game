@@ -38,6 +38,9 @@ function draw() {
         ctx.strokeStyle = "yellow";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
     }
+
+    /* Draw of food */
+    ctx.drawImage(foodImg, food.x, food.y);
 }
 
 let game = setInterval(draw, 500);
