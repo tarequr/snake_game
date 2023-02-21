@@ -66,22 +66,23 @@ let d;
 
 recognition.addEventListener("result", direction);
 
-    function direction(e){
-        const hello = Array.from(e.results).map((results) => results[0].transcript);
-        fianalDirection = hello[0];
-console.log(fianalDirection);
-        let key = fianalDirection
+function direction(e){
+    const hello = Array.from(e.results).map((results) => results[0].transcript);
+    fianalDirection = hello[0];
+    // console.log(fianalDirection);
+    
+    let key = fianalDirection
 
-        if (key == "left" && d != "RIGHT") {
-            d = "LEFT";
-        } else if(key == "up" && d != "DOWN"){
-            d = "UP";
-        } else if(key == "right" && d != "LEFT"){
-            d = "RIGHT";
-        }else if(key == "down" && d != "UP"){
-            d = "DOWN";
-        }
+    if (key == "left" && d != "RIGHT") {
+        d = "LEFT";
+    } else if(key == "up" && d != "DOWN"){
+        d = "UP";
+    } else if(key == "right" && d != "LEFT"){
+        d = "RIGHT";
+    }else if(key == "down" && d != "UP"){
+        d = "DOWN";
     }
+}
 
 /* Collision function */
 function collision(head, array) {
