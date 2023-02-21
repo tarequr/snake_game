@@ -64,7 +64,7 @@ function draw() {
     if (d == "LEFT")snakeX -= box;
     if (d == "UP")snakeY -= box;
     if (d == "RIGHT")snakeX += box;
-    if (d == "DOWN")snakeY -= box;
+    if (d == "DOWN")snakeY += box;
 
     /* After eating the food */
     if (snakeX == food.x && snakeY == food.y) {
@@ -72,10 +72,20 @@ function draw() {
         food = {
             x: Math.floor(Math.random()*17+1)*box,
             y: Math.floor(Math.random()*15+3)*box,
-        }
+        };
     } else {
         snake.pop();
     }
+
+    /* New head */
+    let newHead = {
+        x:snakeX,
+        y:snakeY,
+    }
+
+    /* Shifting head */
+    snake.unshift(newHead);
+
 
     /* Creating the score */
     ctx.fillStyle = "white"
